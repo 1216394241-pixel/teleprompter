@@ -19,12 +19,14 @@ self.onmessage = async ({ data }) => {
       if (!transcriber) {
         const options = { dtype: 'q4', progress_callback: progress };
         // M1 iPad 支持 WebGPU 时优先使用，无法初始化则自动回落至 WASM。
-        try { transcriber = await pipeline('automatic-speech-recognition', 'onnx-community/whisper-base', { ...options, device: 'webgpu' }); }
-        catch { transcriber = await pipeline('automatic-speech-recognition', 'onnx-community/whisper-base', options); }
+        // tiny 的量化版本能在没有 WebGPU 的 Safari/Chrome 回退路径中保持可用的响应速度。
+        try { transcriber = await pipeline('automatic-speech-recognition', 'onnx-community/whisper-tiny', { ...options, device: 'webgpu' }); }
+        catch { transcriber = await pipeline('automatic-speech-recognition', 'onnx-community/whisper-tiny', options); }
       }
       self.postMessage({ type: 'ready' });
     }
     if (data.type === 'transcribe' && transcriber) {
+      self.postMessage({ type: 'progress', message: '正在本地识别你刚才说的内容…' });
       const result = await transcriber(data.audio, { language: 'chinese', task: 'transcribe', chunk_length_s: 6, stride_length_s: 1, return_timestamps: false });
       self.postMessage({ type: 'result', text: result.text || '' });
     }
