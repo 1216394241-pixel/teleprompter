@@ -12,6 +12,7 @@ h1 { font-size:30px; margin:0; letter-spacing:-.04em; }
 .icon-button, .control-button, .close-dialog { border:0; color:#fff; background:#1d2636; border-radius:50%; width:45px; height:45px; font-size:22px; }
 .title-field, .script-field, .settings-card label { display:flex; flex-direction:column; gap:9px; color:#bdc6d8; font-size:14px; font-weight:600; }
 input[type="text"], textarea { width:100%; border:1px solid #2a3446; background:#121823; color:#f5f7fb; border-radius:12px; outline:none; padding:14px; }
+select { width:100%; border:1px solid #2a3446; background:#121823; color:#f5f7fb; border-radius:10px; outline:none; padding:11px 12px; }
 input[type="text"]:focus, textarea:focus { border-color:#71a2ff; box-shadow:0 0 0 3px #3674d733; }
 textarea { resize:none; min-height:44dvh; line-height:1.7; }
 .editor-footer { display:flex; justify-content:space-between; align-items:center; gap:16px; }
