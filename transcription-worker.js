@@ -27,7 +27,7 @@ self.onmessage = async ({ data }) => {
     }
     if (data.type === 'transcribe' && transcriber) {
       self.postMessage({ type: 'progress', message: '正在本地识别你刚才说的内容…' });
-      const result = await transcriber(data.audio, { language: 'chinese', task: 'transcribe', chunk_length_s: 6, stride_length_s: 1, return_timestamps: false });
+      const result = await transcriber(data.audio, { language: 'chinese', task: 'transcribe', chunk_length_s: 3, stride_length_s: 0.5, return_timestamps: false });
       self.postMessage({ type: 'result', text: result.text || '' });
     }
   } catch (error) {
