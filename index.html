@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#090b10" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>跟读提词器</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <section id="editorView" class="view editor-view" aria-label="稿件编辑器">
+        <header class="editor-header">
+          <div>
+            <p class="eyebrow">OFFLINE PROMPTER</p>
+            <h1>跟读提词器</h1>
+          </div>
+          <button id="openSettings" class="icon-button" aria-label="打开设置">⚙︎</button>
+        </header>
+
+        <label class="title-field">
+          <span>稿件名称</span>
+          <input id="scriptTitle" type="text" maxlength="60" placeholder="例如：产品介绍口播" />
+        </label>
+        <label class="script-field">
+          <span>口播稿</span>
+          <textarea id="scriptText" spellcheck="false" placeholder="把你的口播稿粘贴到这里。&#10;&#10;每个自然段会成为一个可定位的段落；语音跟随会根据你读到的内容移动提词位置。"></textarea>
+        </label>
+        <div class="editor-footer">
+          <p id="saveHint" class="save-hint">稿件会自动保存在这台 iPad 上</p>
+          <button id="startPrompter" class="primary-button">进入提词模式 <span>→</span></button>
+        </div>
+      </section>
+
+      <section id="prompterView" class="view prompter-view hidden" aria-label="提词模式">
+        <div id="teleprompter" class="teleprompter">
+          <div id="scriptStage" class="script-stage"></div>
+          <div class="focus-line" aria-hidden="true"></div>
+          <div id="tapLeft" class="tap-zone tap-left" aria-label="上一段"></div>
+          <div id="tapRight" class="tap-zone tap-right" aria-label="下一段"></div>
+        </div>
+        <div id="statusPill" class="status-pill">准备就绪</div>
+        <nav id="controls" class="controls" aria-label="提词器控制">
+          <button id="exitPrompter" class="control-button" aria-label="退出提词模式">✕</button>
+          <button id="previousParagraph" class="control-button" aria-label="上一段">‹</button>
+          <button id="toggleScroll" class="control-button main-control" aria-label="开始自动滚动">▶</button>
+          <button id="nextParagraph" class="control-button" aria-label="下一段">›</button>
+          <button id="toggleListening" class="control-button listen-control" aria-label="启动本地 AI 跟读">🎙</button>
+        </nav>
+      </section>
+    </main>
+
+    <dialog id="settingsDialog">
+      <form method="dialog" class="settings-card">
+        <header><h2>提词设置</h2><button class="close-dialog" value="close" aria-label="关闭">×</button></header>
+        <label class="switch-row"><span>镜像显示</span><input id="mirrorSwitch" type="checkbox" /><i></i></label>
+        <label>字体大小 <output id="fontSizeOutput"></output><input id="fontSize" type="range" min="28" max="96" step="1" /></label>
+        <label>行距 <output id="lineHeightOutput"></output><input id="lineHeight" type="range" min="1.2" max="2.2" step="0.05" /></label>
+        <label>自动滚动速度 <output id="speedOutput"></output><input id="scrollSpeed" type="range" min="4" max="55" step="1" /></label>
+        <p class="settings-note">镜像用于反射式提词器。设置会自动保存在本机。</p>
+      </form>
+    </dialog>
+    <script src="app.js"></script>
+  </body>
+</html>
